@@ -2,47 +2,88 @@ import type { Metadata, Viewport } from "next";
 import AppShell from "@/components/layout/AppShell";
 import "./globals.css";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai-agent-test-lab.vercel.app";
+const SITE_NAME = "AgentTest Lab";
+const DEFAULT_TITLE = "AgentTest Lab — AI Agent Web Testing";
+const DEFAULT_DESCRIPTION =
+  "A comprehensive, interactive web testing laboratory built for AI agents. 7 test suites — forms, interactions, navigation, dynamic content, modals, drag-and-drop, and real-world scenarios — with live analytics, scores, and session history.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "AgentTest Lab — AI Agent Web Testing",
-    template: "%s | AgentTest Lab",
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "A comprehensive, interactive web testing laboratory built for AI agents. Covers forms, interactions, navigation, dynamic content, modals, drag-and-drop, and real-world scenarios — all with live analytics.",
+  description: DEFAULT_DESCRIPTION,
   keywords: [
     "AI agent testing",
-    "web automation",
-    "browser testing",
-    "test lab",
-    "form testing",
+    "web automation testing",
+    "browser automation",
+    "AI agent benchmark",
+    "test lab for AI",
+    "form testing automation",
     "interaction testing",
-    "Next.js testing",
-    "AI web agent",
-    "automated testing",
-    "test analytics",
+    "Next.js test environment",
+    "AI web agent evaluation",
+    "automated UI testing",
+    "drag and drop testing",
+    "modal testing",
+    "navigation testing",
+    "live analytics dashboard",
+    "LLM browser agent",
+    "agent web testing",
   ],
-  authors: [{ name: "AgentTest Lab" }],
-  creator: "AgentTest Lab",
-  applicationName: "AgentTest Lab",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  applicationName: SITE_NAME,
   category: "Developer Tools",
-  robots: { index: true, follow: true },
+  classification: "AI Tools, Developer Tools, Testing Frameworks",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
-    siteName: "AgentTest Lab",
-    title: "AgentTest Lab — AI Agent Web Testing",
-    description:
-      "Comprehensive web automation testing scenarios built for AI agents. Interact, measure, and optimise across 7 test suites with live analytics.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AgentTest Lab — AI Agent Web Testing Laboratory",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgentTest Lab — AI Agent Web Testing",
-    description:
-      "Comprehensive web automation testing scenarios built for AI agents. Interact, measure, and optimise across 7 test suites with live analytics.",
+    site: "@AgentTestLab",
+    creator: "@AgentTestLab",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [{ url: "/og-image.png", alt: "AgentTest Lab" }],
   },
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>",
+    shortcut: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>",
   },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
