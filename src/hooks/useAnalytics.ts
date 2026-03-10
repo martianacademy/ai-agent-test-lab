@@ -8,6 +8,7 @@ export function useAnalytics(testName: string, category: string) {
     const [session, setSession] = useState<TestSession | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const sessionRef = useRef<TestSession | null>(null);
+    const isRunningRef = useRef(false);
 
     useEffect(() => {
         const unsub = engine.subscribe(() => {
@@ -17,10 +18,20 @@ export function useAnalytics(testName: string, category: string) {
         return unsub;
     }, [engine]);
 
+    // Auto-save if the agent navigates away while a test is still running
+    useEffect(() => {
+        return () => {
+            if (isRunningRef.current) {
+                engine.endSession();
+            }
+        };
+    }, [engine]);
+
     const startTest = useCallback(() => {
         const s = engine.startSession(testName, category);
         sessionRef.current = s;
         setSession({ ...s });
+        isRunningRef.current = true;
         setIsRunning(true);
     }, [engine, testName, category]);
 
@@ -28,6 +39,7 @@ export function useAnalytics(testName: string, category: string) {
         const s = engine.endSession();
         if (s) sessionRef.current = s;
         setSession(sessionRef.current);
+        isRunningRef.current = false;
         setIsRunning(false);
         return s;
     }, [engine]);
